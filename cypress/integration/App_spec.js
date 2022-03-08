@@ -36,4 +36,23 @@ describe('Application', () => {
     .should('exist')
     .contains('Phil')
   })
+
+  it('should be able to delete orders', () => {
+    cy.intercept('DELETE', 'http://localhost:3001/api/v1/orders/:id')
+    cy.fixture('orders.json').as('orders')
+    .then((json) => {
+      cy.intercept('GET', 'http://localhost:3001/api/v1/orders', json)
+    })
+    cy.visit('http://localhost:3000/')
+      .get('input').type('Phil')
+      .get('button[name=steak]').click()
+      .get('button[name=beans]').click()
+      .get('button[name=guacamole]').click()
+      .get('button').contains('Submit Order').click()
+      .get('.order').eq(3)
+      .should('exist')
+      .get('.remove').eq(3).click()
+      .get('.order').eq(3)
+      .should('not.exist')
+  })
 })
