@@ -39,9 +39,6 @@ const Orders = ({ orders, removeOrder }) => {
     )
   });
 
-
-  
-
   return (
     <section>
       { orderEls.length ? orderEls : <p>No orders yet!</p> }
