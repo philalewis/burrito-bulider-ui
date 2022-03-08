@@ -36,6 +36,22 @@ describe('Application', () => {
     .should('exist')
     .contains('Phil')
   })
+  
+    it('should not show a new order if the post request is unsuccessful', () => {
+      cy.intercept('POST', 'http://localhost:3001/api/v1/orders', {statusCode: 404})
+      cy.fixture('orders.json').as('orders')
+      .then((json) => {
+        cy.intercept('GET', 'http://localhost:3001/api/v1/orders', json)
+      })
+        .visit('http://localhost:3000/')
+        .get('input').type('Phil')
+        .get('button[name=steak]').click()
+        .get('button[name=beans]').click()
+        .get('button[name=guacamole]').click()
+        .get('button').contains('Submit Order').click()
+        .get('.order').eq(3)
+        .should('not.exist')
+    })
 
   it('should be able to delete orders', () => {
     cy.intercept('DELETE', 'http://localhost:3001/api/v1/orders/:id')
