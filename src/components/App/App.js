@@ -22,7 +22,8 @@ class App extends Component {
 
   submitNewOrder = (name, ingredients) => {
     makeNewOrder(name, ingredients)
-    .then(data => this.setState({orders: [...this.state.orders, data]}))
+      .then(data => this.setState({orders: [...this.state.orders, data]}))
+      .catch(err => console.error('Error posting:', err))
   }
 
   render() {
