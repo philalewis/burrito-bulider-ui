@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getOrders, makeNewOrder } from '../../apiCalls';
+import { getOrders, makeNewOrder, deleteOrder } from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -26,6 +26,14 @@ class App extends Component {
       .catch(err => console.error('Error posting:', err))
   }
 
+  removeOrder = (id) => {
+    deleteOrder(id)
+    .then(() => {
+      const remainingOrders = this.state.orders.filter(order => order.id !== id)
+      this.setState({orders: remainingOrders})
+    })
+  }
+
   render() {
     return (
       <main className="App">
@@ -34,7 +42,7 @@ class App extends Component {
           <OrderForm submitNewOrder={this.submitNewOrder}/>
         </header>
 
-        <Orders orders={this.state.orders}/>
+        <Orders orders={this.state.orders} removeOrder={this.removeOrder}/>
       </main>
     );
   }
