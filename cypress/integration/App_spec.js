@@ -29,6 +29,8 @@ describe('Application', () => {
     .get('button[name=steak]').click()
     .get('button[name=beans]').click()
     .get('button[name=guacamole]').click()
+    .get('.ingredients-list')
+    .contains('Order: steak, beans, guacamole')
     .get('button').contains('Submit Order').click()
     .get('.order').eq(3)
     .should('exist')
