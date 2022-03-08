@@ -28,6 +28,10 @@ class OrderForm extends Component {
     this.setState({name: event.target.value})
   }
 
+  checkIfDisabled = () => {
+    return (this.state.name.length === 0 || this.state.ingredients.length === 0)
+  }
+
   render() {
     const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
     const ingredientButtons = possibleIngredients.map(ingredient => {
@@ -52,7 +56,7 @@ class OrderForm extends Component {
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
 
-        <button onClick={e => this.handleSubmit(e)}>
+        <button onClick={e => this.handleSubmit(e)} disabled={this.checkIfDisabled()}>
           Submit Order
         </button>
       </form>
