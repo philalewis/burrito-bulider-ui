@@ -9,13 +9,13 @@ const Orders = ({ orders, removeOrder }) => {
       carnitas: 3,
       sofritas: 3,
       lettuce: 1,
-      ['queso fresco']: 2,
-      ['pico de gallo']: 1,
-      ['hot sauce']: 1,
+      'queso fresco': 2,
+      'pico de gallo': 1,
+      'hot sauce': 1,
       guacamole: 3,
       jalapeno: 1,
       cilantro: 1,
-      ['sour cream']: 2
+      'sour cream': 2
     }
     return ingredients.reduce((acc, ing) => {
       acc += prices[ing]
